@@ -32,3 +32,6 @@ net start w32time
 netsh advfirewall firewall delete rule name="Allow OUT NTP"
 netsh advfirewall firewall add rule name="Allow OUT NTP" dir=out remoteport="123" protocol=udp  action=allow
 w32tm /resync
+
+echo "Desactivando auto-inicio Server Manager..."
+Get-ScheduledTask -TaskName ServerManager | Disable-ScheduledTask -Verbose
