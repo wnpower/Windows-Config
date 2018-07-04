@@ -35,3 +35,7 @@ w32tm /resync
 
 echo "Desactivando auto-inicio Server Manager..."
 Get-ScheduledTask -TaskName ServerManager | Disable-ScheduledTask -Verbose
+
+echo "Desactivando expiración del usuario Administrator..."
+Set-LocalUser -Name "Administrator" -PasswordNeverExpires:$true
+
