@@ -6,7 +6,7 @@ wmic /interactive:off nicconfig where TcpipNetbiosOptions=0 call SetTcpipNetbios
 wmic /interactive:off nicconfig where TcpipNetbiosOptions=1 call SetTcpipNetbios 2
 
 echo "Desactivando servicios de red innecesarios..."
-Disable-NetAdapterBinding -Name "Ethernet" -ComponentID ms_lldp
+Disable-NetAdapterBinding -Name "Ethernet" -ComponentID ms_lldp 2> $null
 Disable-NetAdapterBinding -Name "Ethernet" -ComponentID ms_lltdio
 Disable-NetAdapterBinding -Name "Ethernet" -ComponentID ms_implat
 Disable-NetAdapterBinding -Name "Ethernet" -ComponentID ms_rspndr
@@ -40,5 +40,5 @@ echo "Desactivando auto-inicio Server Manager..."
 Get-ScheduledTask -TaskName ServerManager | Disable-ScheduledTask -Verbose
 
 echo "Desactivando expiración del usuario Administrator..."
-Set-LocalUser -Name "Administrator" -PasswordNeverExpires:$true
+WMIC USERACCOUNT SET PasswordExpires=FALSE
 
