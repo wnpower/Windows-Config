@@ -26,7 +26,7 @@ echo "Activando ICMP de entrada..."
 Netsh advfirewall firewall set rule name="File and Printer Sharing (Echo Request - ICMPv4-In)" new enable=yes
 
 echo "Activando RDP..."
-reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 0 /f
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 0 /f
 Netsh advfirewall firewall set rule group="remote desktop" new enable=yes
 
 echo "Actualizando hora del servidor con NTP..."
