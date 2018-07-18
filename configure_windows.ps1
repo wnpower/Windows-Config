@@ -2,8 +2,16 @@ echo "Desactivando SMB V1..."
 Set-SmbServerConfiguration -EnableSMB1Protocol $false -Force
 
 echo "Desactivando NetBIOS..."
-wmic /interactive:off nicconfig where TcpipNetbiosOptions=0 call SetTcpipNetbios 2
-wmic /interactive:off nicconfig where TcpipNetbiosOptions=1 call SetTcpipNetbios 2
+$key = "HKLM:SYSTEM\CurrentControlSet\services\NetBT\Parameters\Interfaces"
+Get-ChildItem $key |
+foreach { 
+  Write-Host("Modify $key\$($_.pschildname)")
+  $NetbiosOptions_Value = (Get-ItemProperty "$key\$($_.pschildname)").NetbiosOptions
+  Write-Host("NetbiosOptions updated value is $NetbiosOptions_Value")
+}
+
+echo "Activado DEP para Servicios Windows Essentials unicamente..."
+cmd.exe /C "bcdedit.exe /set {current} nx OptIn"
 
 echo "Desactivando servicios de red innecesarios..."
 Disable-NetAdapterBinding -Name "Ethernet" -ComponentID ms_lldp 2> $null
