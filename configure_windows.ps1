@@ -53,7 +53,7 @@ echo "Desactivando expiración del usuario Administrator..."
 WMIC USERACCOUNT SET PasswordExpires=FALSE
 
 if ($ISVM) {
-	echo "VM detectada, desactivando Antvirus..."
+	echo "VM detectada, desactivando Antivirus..."
 	Set-MpPreference -DisableRealtimeMonitoring $true
 }
 
