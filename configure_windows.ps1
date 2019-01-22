@@ -1,3 +1,5 @@
+$ISVM = (Get-WmiObject -Class Win32_ComputerSystem).Model | Select-String -Pattern "KVM|Virtual" -Quiet
+
 echo "Desactivando SMB V1..."
 Set-SmbServerConfiguration -EnableSMB1Protocol $false -Force
 
@@ -50,3 +52,9 @@ Get-ScheduledTask -TaskName ServerManager | Disable-ScheduledTask -Verbose
 echo "Desactivando expiración del usuario Administrator..."
 WMIC USERACCOUNT SET PasswordExpires=FALSE
 
+if ($ISVM) {
+	echo "VM detectada, desactivando Antvirus..."
+	Set-MpPreference -DisableRealtimeMonitoring $true
+}
+
+echo "¡Listo!"
