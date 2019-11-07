@@ -61,4 +61,8 @@ echo "Cambiando puerto RDP a 20389..."
 netsh advfirewall firewall add rule name="RDP Puerto alternativo" dir=in localport="20389" protocol=tcp  action=allow
 Set-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Control\Terminal*Server\WinStations\RDP-TCP\ -Name PortNumber -Value 20389
 
+echo "Limpieza final..."
+Remove-Item (Get-PSReadlineOption).HistorySavePath
+Remove-Item -Path $MyInvocation.MyCommand.Source
+
 echo "¡Listo!"
