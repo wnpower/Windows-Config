@@ -62,6 +62,38 @@ netsh advfirewall firewall delete rule name="RDP Puerto alternativo"
 netsh advfirewall firewall add rule name="RDP Puerto alternativo" dir=in localport="20389" protocol=tcp  action=allow
 Set-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Control\Terminal*Server\WinStations\RDP-TCP\ -Name PortNumber -Value 20389
 
+echo "Desactivar reglas Firewall..."
+Disable-NetFirewallRule -DisplayGroup "AllJoyn Router" -Direction Inbound
+Disable-NetFirewallRule -DisplayGroup "Cast to Device functionality" -Direction Inbound
+Disable-NetFirewallRule -DisplayGroup "Core Networking" -Direction Inbound
+Disable-NetFirewallRule -DisplayGroup "Cortana" -Direction Inbound
+Disable-NetFirewallRule -DisplayGroup "File and Printing Sharing" -Direction Inbound
+Disable-NetFirewallRule -DisplayGroup "File and Printer Sharing"  -Direction Inbound
+Disable-NetFirewallRule -DisplayGroup "mDNS" -Direction Inbound
+Disable-NetFirewallRule -DisplayGroup "SNMP Service" -Direction Inbound
+Disable-NetFirewallRule -DisplayGroup "Work or school account" -Direction Inbound
+Disable-NetFirewallRule -DisplayGroup "Your account" -Direction Inbound
+Disable-NetFirewallRule -DisplayGroup "File Server Remote Management" -Direction Inbound
+Disable-NetFirewallRule -DisplayGroup "DIAL protocol server" -Direction Inbound
+Disable-NetFirewallRule -DisplayGroup "Google Chrome" -Direction Inbound
+Disable-NetFirewallRule -DisplayName "Google Chrome*"
+Disable-NetFirewallRule -DisplayGroup "Remote Desktop Services" -Direction Inbound
+Disable-NetFirewallRule -DisplayGroup "Remote Desktop Licensing Server" -Direction Inbound
+Disable-NetFirewallRule -DisplayGroup "Microsoft Edge*" -Direction Inbound
+Disable-NetFirewallRule -DisplayGroup "SNMP Service" -Direction Inbound
+Disable-NetFirewallRule -DisplayName "Networking*"
+Disable-NetFirewallRule -DisplayGroup "Windows Remote Management"
+Disable-NetFirewallRule -DisplayGroup "Windows Management Instrumentation (WMI)"
+Disable-NetFirewallRule -DisplayGroup "Windows Security"
+Disable-NetFirewallRule -DisplayGroup "DNS Service" -Direction Inbound
+Disable-NetFirewallRule -DisplayGroup "Delivery Optimization" -Direction Inbound
+Disable-NetFirewallRule -DisplayGroup "Desktop App Web Viewer" -Direction Inbound
+Disable-NetFirewallRule -DisplayGroup "Microsoft Media Foundation Network Source" -Direction Inbound
+Disable-NetFirewallRule -DisplayGroup "Start" -Direction Inbound
+Disable-NetFirewallRule -DisplayGroup "Windows Search" -Direction Inbound
+Disable-NetFirewallRule -DisplayName "ICMP Ping"
+Disable-NetFirewallRule -DisplayGroup "Network Discovery" -Direction Inbound
+
 echo "Limpieza final..."
 Remove-Item (Get-PSReadlineOption).HistorySavePath
 Remove-Item -Path $MyInvocation.MyCommand.Source
